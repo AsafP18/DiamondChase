@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EnemyMovement : MonoBehaviour
     Animator anm;
     bool lockedonplayer;//when enemy gets close to player
     bool isAttacking;
+   
     //sizes of box collider
     // Start is called before the first frame update
     void Start()
@@ -27,8 +29,9 @@ public class EnemyMovement : MonoBehaviour
         {
             if (lockedonplayer == false)
                 anm.SetBool("isRunning", true);
-            if(isAttacking==false)
-                 transform.position = Vector3.MoveTowards(transform.position, new Vector3(ball.position.x,transform.position.y,ball.position.z), speed * Time.deltaTime);
+            if (isAttacking == false)
+                GetComponent<NavMeshAgent>().SetDestination(ball.position);
+                 /*transform.position = Vector3.MoveTowards(transform.position, new Vector3(ball.position.x,transform.position.y,ball.position.z), speed * Time.deltaTime);*/
             transform.LookAt(new Vector3(ball.position.x, transform.position.y, ball.position.z));
             lockedonplayer = true;
         }
@@ -53,11 +56,14 @@ public class EnemyMovement : MonoBehaviour
     }
     private IEnumerator OnTriggerExit(Collider other)
     {
-        yield return new WaitForSeconds(1.5f);
-       // transform.GetComponent<BoxCollider>().enabled = true;
-     //   transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
-        anm.SetBool("isRunning", true);
-        isAttacking = false;
+        if (other.gameObject.tag == "Player")
+        {
+            yield return new WaitForSeconds(1.5f);
+            // transform.GetComponent<BoxCollider>().enabled = true;
+            //   transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
+            anm.SetBool("isRunning", true);
+            isAttacking = false;
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
