@@ -11,9 +11,11 @@ public class FireEngine : MonoBehaviour
     public GameObject firepoint;
     Transform tempPos;
     GameObject tempArrow;
-    float fireRate = 2;
+    float fireRate = 0.8f;
     float nextFire = 0;
     float timer;
+    
+    float sensitivity = 50;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,8 @@ public class FireEngine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > nextFire)
+        
+            if (Time.time > nextFire)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -31,22 +34,24 @@ public class FireEngine : MonoBehaviour
                 tempArrow = Instantiate(arrow, firepoint.transform.position, arrow.transform.rotation, firepoint.transform);
                 tempPos = forward.transform;
                 anm.SetTrigger("Draw");
+               
+            
             }
             if (Input.GetMouseButtonUp(0))
             {
                 anm.SetTrigger("Shoot");
-                tempArrow.GetComponent<ArrowEngine>().SetForward(tempPos);
+                if(tempArrow!=null)
                 tempArrow.GetComponent<ArrowEngine>().move = true;
                
                 nextFire = Time.time + fireRate;
             }          
             try
             {
-                if (timer + 1 < Time.time&& tempArrow.transform.parent != null)
+                if (timer + 0.8f< Time.time&& tempArrow.transform.parent != null && tempArrow.GetComponent<ArrowEngine>().move==true)
                     tempArrow.transform.parent = null;
 
             }
-            catch (Exception e )
+            catch (Exception )
             {
                 
             }

@@ -1,52 +1,45 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ArrowEngine : MonoBehaviour
 {
+    
+    GameObject forward;
     public bool move;
-    Transform forward;
-    bool first;
     float timer;
+   // bool Inair;
     // Start is called before the first frame update
     void Start()
     {
+
         move = false;
-        first = true;
         timer = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(move&&timer+1>Time.time)
+        if( timer + 1.5f < Time.time&&move)
         {
-            StartMove();
+            //Inair = true;
+            if(forward==null)
+            forward=GameObject.Find("ShootLine");
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(forward.transform.position.x, forward.transform.position.y, forward.transform.position.z), 20 * Time.deltaTime);
         }
-        else if(move&& timer + 1 < Time.time)
+ 
+        try
         {
-            StartMove();
-            first = false;
+            if (transform.position == forward.transform.position)
+                Destroy(gameObject);
+
         }
-    }
-    public void SetForward(Transform forward)
-    {
-        this.forward = forward;
-    }
-    public IEnumerator StartMove()
-    {
-        if(first)
+        catch (Exception)
         {
-            yield return new WaitForSeconds(timer-Time.time);
-                       
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(forward.transform.position.x, transform.position.y, forward.transform.position.z), 20 * Time.deltaTime);
-            first = false;
-        }
-        else
-        {
-            
-            yield return null;
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(forward.transform.position.x, transform.position.y, forward.transform.position.z), 20 * Time.deltaTime);
+
         }
     }
+   
+   
 }
