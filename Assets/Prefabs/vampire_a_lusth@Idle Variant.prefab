@@ -163,7 +163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1544893795165023240, guid: 747288bdbc056544e84b5f30573a1377, type: 3}
       propertyPath: m_Name
-      value: vampire_a_lusth@Idle
+      value: vampire_a_lusth@Idle Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1694877881761047887, guid: 747288bdbc056544e84b5f30573a1377, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
