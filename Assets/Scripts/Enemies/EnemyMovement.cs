@@ -5,8 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public Transform ball;
-    float speed;
+    GameObject player;
     Animator anm;
     bool lockedonplayer;//when enemy gets close to player
     bool isAttacking;
@@ -15,7 +14,7 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed =3f;
+        player = GameObject.Find("Player");
         anm = gameObject.GetComponent<Animator>();
         lockedonplayer = false;
         isAttacking = false;
@@ -25,15 +24,16 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, ball.position) < 10||lockedonplayer)
+        if (Vector3.Distance(transform.position, player.transform.position) < 10||lockedonplayer)
         {
-            if (lockedonplayer == false)
-                anm.SetBool("isRunning", true);
             if (isAttacking == false)
-                GetComponent<NavMeshAgent>().SetDestination(ball.position);
-                 /*transform.position = Vector3.MoveTowards(transform.position, new Vector3(ball.position.x,transform.position.y,ball.position.z), speed * Time.deltaTime);*/
-            transform.LookAt(new Vector3(ball.position.x, transform.position.y, ball.position.z));
+            {
+                anm.SetBool("isRunning", true);
+                GetComponent<NavMeshAgent>().SetDestination(player.transform.position);
+            }
             lockedonplayer = true;
+             transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
+
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -49,8 +49,6 @@ public class EnemyMovement : MonoBehaviour
         if (other.tag == "Player")
         {
             anm.SetTrigger("isAttack");
-           // transform.GetComponent<BoxCollider>().enabled = false;
-            //transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
             anm.SetBool("isRunning", false);
         }
     }
@@ -59,8 +57,6 @@ public class EnemyMovement : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             yield return new WaitForSeconds(1.5f);
-            // transform.GetComponent<BoxCollider>().enabled = true;
-            //   transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
             anm.SetBool("isRunning", true);
             isAttacking = false;
         }
