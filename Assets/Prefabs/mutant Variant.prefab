@@ -26,7 +26,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.18
-  m_Speed: 1.5
+  m_Speed: 1.8
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 101
@@ -96,6 +96,18 @@ PrefabInstance:
     - target: {fileID: 1528818439627422895, guid: 5a3a7597566f98b45b88620eaac4f130, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528818439627422895, guid: 5a3a7597566f98b45b88620eaac4f130, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528818439627422895, guid: 5a3a7597566f98b45b88620eaac4f130, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528818439627422895, guid: 5a3a7597566f98b45b88620eaac4f130, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1528818439627422895, guid: 5a3a7597566f98b45b88620eaac4f130, type: 3}
       propertyPath: m_LocalPosition.x
