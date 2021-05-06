@@ -85,6 +85,10 @@ PrefabInstance:
       propertyPath: ball
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1350461103740266051, guid: 5a3a7597566f98b45b88620eaac4f130, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1350461103740266055, guid: 5a3a7597566f98b45b88620eaac4f130, type: 3}
       propertyPath: m_Enabled
       value: 1
